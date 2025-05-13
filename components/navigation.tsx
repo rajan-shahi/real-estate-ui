@@ -1,37 +1,56 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Phone, Mail, MapPin, Home, Building, Info, Contact, Search } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ModeToggle } from "./mode-toggle"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Menu,
+  X,
+  Phone,
+  Mail,
+  MapPin,
+  Home,
+  Building,
+  Info,
+  Contact,
+  Search,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ModeToggle } from "./mode-toggle";
 
 export default function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const pathname = usePathname()
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
-        setIsScrolled(true)
+        setIsScrolled(true);
       } else {
-        setIsScrolled(false)
+        setIsScrolled(false);
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { name: "Home", href: "/", icon: <Home className="h-4 w-4 mr-1" /> },
-    { name: "Properties", href: "/properties", icon: <Building className="h-4 w-4 mr-1" /> },
+    {
+      name: "Properties",
+      href: "/properties",
+      icon: <Building className="h-4 w-4 mr-1" />,
+    },
     { name: "About", href: "/about", icon: <Info className="h-4 w-4 mr-1" /> },
-    { name: "Contact", href: "/contact", icon: <Contact className="h-4 w-4 mr-1" /> },
-  ]
+    {
+      name: "Contact",
+      href: "/contact",
+      icon: <Contact className="h-4 w-4 mr-1" />,
+    },
+  ];
 
   return (
     <header className="fixed w-full z-50">
@@ -86,7 +105,11 @@ export default function Navigation() {
       </AnimatePresence>
 
       <motion.nav
-        className={`py-4 ${isScrolled ? "bg-background/95 backdrop-blur-sm shadow-md" : "bg-transparent"} transition-all duration-300`}
+        className={`py-3 ${
+          isScrolled
+            ? "bg-background/95 backdrop-blur-sm shadow-sm"
+            : "bg-background/80 backdrop-blur-sm"
+        } transition-all duration-300 border-b`}
         animate={{
           y: isScrolled ? -0 : 0,
         }}
@@ -109,7 +132,11 @@ export default function Navigation() {
               <Link key={link.name} href={link.href}>
                 <Button
                   variant={pathname === link.href ? "default" : "ghost"}
-                  className={`flex items-center ${pathname === link.href ? "bg-primary text-primary-foreground" : "  bg-gray-200 "}`}
+                  className={`flex items-center ${
+                    pathname === link.href
+                      ? "bg-primary text-primary-foreground"
+                      : "  bg-gray-200 "
+                  }`}
                 >
                   {link.icon}
                   {link.name}
@@ -150,7 +177,11 @@ export default function Navigation() {
                   <Link key={link.name} href={link.href}>
                     <Button
                       variant={pathname === link.href ? "default" : "ghost"}
-                      className={`w-full justify-start ${pathname === link.href ? "bg-primary text-primary-foreground" : ""}`}
+                      className={`w-full justify-start ${
+                        pathname === link.href
+                          ? "bg-primary text-primary-foreground"
+                          : ""
+                      }`}
                     >
                       {link.icon}
                       {link.name}
@@ -158,7 +189,10 @@ export default function Navigation() {
                   </Link>
                 ))}
                 <Link href="/properties">
-                  <Button variant="outline" className="w-full justify-start mt-2">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start mt-2"
+                  >
                     <Search className="h-4 w-4 mr-1" />
                     Find Properties
                   </Button>
@@ -169,5 +203,5 @@ export default function Navigation() {
         </AnimatePresence>
       </motion.nav>
     </header>
-  )
+  );
 }
