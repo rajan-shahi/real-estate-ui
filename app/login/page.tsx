@@ -130,7 +130,7 @@ export default function LoginPage() {
                     <button
                       type="button"
                       onClick={handleBackToLogin}
-                      className="text-sm font-medium text-gray-600 hover:text-gray-500"
+                      className="text-sm font-medium text-gray-600 hover:text-gray-400"
                     >
                       Back to login
                     </button>
